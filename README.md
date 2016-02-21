@@ -8,6 +8,7 @@ You can find resources on learning ooc on the [project's website](http://ooc-lan
 ## Chapters
 
 - [Chapter 0: Coding style](chapters/0-coding_style.md)
+- [Chapter 1: rock's structure](chapters/1-rock_structure.md)
 
 ## Links
 
