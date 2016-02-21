@@ -35,7 +35,7 @@ In comma separated lists, use no spaces between the left side element and the co
 
 ### Control statements, bracing
 
-If you can omit a pair of braces, for example in a function declaration with an empty body, it is encouraged to do so.  
+If you can omit an empty pair of braces, for example in a function declaration with an empty body, it is encouraged to do so.  
 Function declarations with a single expression body can be written in a single line.  
 
 Use one (1) space between your control statement keyword and parenthesis enclosed expression.
