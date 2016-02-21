@@ -77,7 +77,7 @@ You __do not__ need to worry about nagaqueen unless you have the intention of mo
 It is written in a PEG dialect called [greg](https://github.com/ooc-lang/greg).  
 To build nagaqueen, you will need greg in your PATH.  
 
-If your nagauqeen folder sits laongside your rock folder, than you can directly use `make grammar` in your rock folder to generate a new version of nagaqueen and copy it in rock.  
+If your nagauqeen folder sits alongside your rock folder, than you can directly use `make grammar` in your rock folder to generate a new version of nagaqueen and copy it in rock.  
 
 Otherwise, use `greg /path/to/nagaqueen/grammar/nagaqueen.leg > NagaQueen.c` and `cp NagaQueen.c /path/to/rock/source/rock/frontend/NagaQueen.c`.  
 
