@@ -1,4 +1,4 @@
-## rock's structure
+## Chapter 1: rock's structure
 
 ### rock's parts
 
