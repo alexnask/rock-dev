@@ -10,6 +10,14 @@ You can find resources on learning ooc on the [project's website](http://ooc-lan
 - [Chapter 0: Coding style](chapters/0-coding_style.md)
 - [Chapter 1: rock's structure](chapters/1-rock_structure.md)
 
+## TODO List
+
+- Finish Chapter 1
+- Chapter 2: The AST and the "resolving" process
+- Chapter 3: Type checking, scoring and common roots
+- Chapter 4: Code generation basics
+- Chapter 5: Working on NagaQueen
+
 ## Links
 
 - [ooc-lang tutorial](https://ooc-lang.org/docs/tutorial/)

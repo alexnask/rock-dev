@@ -77,7 +77,7 @@ You __do not__ need to worry about nagaqueen unless you have the intention of mo
 It is written in a PEG dialect called [greg](https://github.com/ooc-lang/greg).  
 To build nagaqueen, you will need greg in your PATH.  
 
-If your nagauqeen folder sits alongside your rock folder, than you can directly use `make grammar` in your rock folder to generate a new version of nagaqueen and copy it in rock.  
+If your nagaqueen folder sits alongside your rock folder, than you can directly use `make grammar` in your rock folder to generate a new version of nagaqueen and copy it in rock.  
 
 Otherwise, use `greg /path/to/nagaqueen/grammar/nagaqueen.leg > NagaQueen.c` and `cp NagaQueen.c /path/to/rock/source/rock/frontend/NagaQueen.c`.  
 
@@ -92,7 +92,7 @@ Let's have a look at the basic parts of the frontend and their function:
 
 - CommandLine: Takes a list of arguments passed to rock, parses them and launches the various subsystems in order.
 - BuildParams: Built by the CommandLine. Holds information on rock's path, backend and driver to use, defined symbols, toolchain to use for C compilation, etc.  
-- Driver: The driver takes care of collecting dependencies (libraries and sources), calling the compiler (if any) and generating any additional files, like a Makefile or Android.mk drivers.  
+- Driver: The driver takes care of collecting dependencies (libraries and sources), calling the compiler (if any) and generating any additional files, like a Makefile or Android.mk  
 At the time of writing this, here is a list of available drivers:  
     * AndroidDriver: Generates C sources, generates Android build files.
     * CMakeDriver: Generates C sources, generates CMakeLists.txt
@@ -111,5 +111,28 @@ Archives are used for incremental compilation by checking whether a library has 
 
 
 ### The middle-end
+
+rock's middle-end is probably the biggest part of the compiler.  
+Its job is to take the original AST provided by the frontend and run a process which detects type errors, does type inference, replaces syntactic sugar etc.  
+
+The middle-end is mostly made up of AST classes, which also contain the logic needed to "resolve" them (that is, find their declaration, if we are talking about a variable, function or type, do typechecking, type inference etc.).  
+In addition to that, some functionality can be located in the `algo` folder.  
+
+Currently, the algorithm to determine an automatic return statement (last expression in function), find the common root of a type and do numeric promotion as well as classifying imports as loose or tight are located there.  
+
+Finally, some basic constructs we use to resolve are defined in the `tinker` folder:  
+
+- Errors.ooc: Error handling, nothing too interesting.
+- Resolver: The resolver goes over a Module's AST and asks every node to be resolved.  
+It also holds some state on whether the node requested for the whole process to be restarted, with a reason (called wholeAgain).
+- Response: An enum returned by every node when resolved (OK or LOOP).  
+- Tinkerer: The Tinkerer holds a list of Modules to resolve.  
+To do that, it creates a list of Resolvers for those Modules, and launches them on the Modules.  
+Each time a Resolver didn't manage to resolve the whole Module, it increments a round counter and tries again.  
+If the round counter goes over a certain limit, it errors out, assuming we were caught in some infinite loop.  
+- Trail: The Trail is a stack of AST Nodes that the Resolver is currently processing.  
+When requesting to resolve a child Node, Nodes usually push themselves on the trail and pop themselves when done.  
+This is critical for rock to function, since Nodes don't hold parent information.  
+This allows us to look into the context of a Node to find it's declaration, type or other information.
 
 ### The cnaughty backend
