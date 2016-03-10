@@ -136,3 +136,15 @@ This is critical for rock to function, since Nodes don't hold parent information
 This allows us to look into the context of a Node to find it's declaration, type or other information.
 
 ### The cnaughty backend
+
+cnaughty is the most frequently used backend.  
+In fact, it is currently the only backend that can be used to eventually compile a program and parts of the language are specifically tailored for it.  
+
+In fact, many AST constructs are not representable in ooc code (comma sequences, anonymous structures etc.) but are designed to be easily translated by the cnaughty backend.  
+
+The backend uses the visitor pattern to go through every module and generates three files for each.  
+One is the resulting .c source file and the other two are .h header files.  
+One of the header files contains structure declarations while the other one only forward declares types.  
+The correct header file is included depending on whether the original import was found to be tight or loose.  
+
+Translation from the AST to C99 is pretty straightforward and most nodes are translated like you would expect them to.
